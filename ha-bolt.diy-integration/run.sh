@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -e
 
-# Charger les variables d'environnement
-export $(grep -v '^#' .env.local | xargs)
+# Fixer le chemin pour Ingress
+export BASE_PATH=/ingress
 
-# Démarrer l'application
-exec pnpm run dockerstart
+# Lancer le serveur
+pnpm run dev -- --host 0.0.0.0 --port 5173
