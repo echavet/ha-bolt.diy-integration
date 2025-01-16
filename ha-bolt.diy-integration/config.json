@@ -1,6 +1,6 @@
 {
   "name": "HA Bolt DIY Integration",
-  "version": "1.1",
+  "version": "1.0",
   "slug": "ha_bolt_diy_integration",
   "description": "Bolt AI accessible depuis Home Assistant.",
   "arch": ["aarch64", "armv7", "amd64", "armhf", "i386"],
@@ -25,4 +25,8 @@
     "GOOGLE_GENERATIVE_AI_API_KEY": "optional",
     "OLLAMA_API_BASE_URL": "optional",
     "TOGETHER_API_KEY": "optional",
-   
+    "TOGETHER_API_BASE_URL": "optional"
+  },
+  "schema": {},
+  "host_network": false
+}
