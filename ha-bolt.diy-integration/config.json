@@ -14,18 +14,18 @@
   "environment": {
     "NODE_ENV": "production",
     "PORT": "5173",
-    "GROQ_API_KEY": "required",
-    "HuggingFace_API_KEY": "required",
-    "OPENAI_API_KEY": "required",
-    "ANTHROPIC_API_KEY": "required",
-    "OPEN_ROUTER_API_KEY": "required",
-    "GOOGLE_GENERATIVE_AI_API_KEY": "required",
-    "OLLAMA_API_BASE_URL": "required",
-    "TOGETHER_API_KEY": "required",
-    "TOGETHER_API_BASE_URL": "required",
     "VITE_LOG_LEVEL": "debug",
     "DEFAULT_NUM_CTX": "32768",
-    "RUNNING_IN_DOCKER": "true"
+    "RUNNING_IN_DOCKER": "true",
+    "GROQ_API_KEY": "optional",
+    "HuggingFace_API_KEY": "optional",
+    "OPENAI_API_KEY": "optional",
+    "ANTHROPIC_API_KEY": "optional",
+    "OPEN_ROUTER_API_KEY": "optional",
+    "GOOGLE_GENERATIVE_AI_API_KEY": "optional",
+    "OLLAMA_API_BASE_URL": "optional",
+    "TOGETHER_API_KEY": "optional",
+    "TOGETHER_API_BASE_URL": "optional"
   },
   "schema": {},
   "host_network": false
