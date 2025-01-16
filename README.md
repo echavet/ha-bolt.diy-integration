@@ -1,18 +1,20 @@
-# HA Bolt DIY Integration
+# HA Bolt DIY Integration v1.4.5
 
-    Official integration of Bolt DIY into Home Assistant.
+    Native integration of Bolt DIY into Home Assistant using Node.js.
 
     ## Features
-    - Full Bolt DIY functionality
-    - Integrated WebContainer environment
-    - Home Assistant authentication
-    - Accessible through sidebar menu
+    - Runs Bolt.diy directly in Home Assistant
+    - Integrated authentication
+    - Automatic Node.js installation
+    - Easy configuration
 
     ## Installation
-    1. Add this repository to your Home Assistant addons
+    1. Add this repository to your Home Assistant addons:
+       `https://github.com/echavet/ha-bolt-diy-integration`
     2. Install the HA Bolt DIY Integration addon
-    3. Start the addon
-    4. Access through the sidebar menu
+    3. Configure the Node.js version if needed
+    4. Start the addon
+    5. Access through the sidebar menu
 
     ## Configuration
-    No configuration required - uses default Bolt DIY settings
+    - node_version: Node.js version to use (default: 18)
