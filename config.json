@@ -1,0 +1,22 @@
+{
+      "name": "HA Bolt DIY Integration",
+      "version": "1.4",
+      "slug": "ha_bolt_diy_integration",
+      "description": "Official HA Bolt DIY Integration for Home Assistant",
+      "arch": ["armv7", "aarch64", "amd64"],
+      "startup": "application",
+      "boot": "auto",
+      "ingress": true,
+      "ingress_port": 5173,
+      "panel_icon": "mdi:robot",
+      "homeassistant": "2023.1.0",
+      "ports": {
+        "5173/tcp": 5173
+      },
+      "ports_description": {
+        "5173/tcp": "HA Bolt DIY Integration web interface"
+      },
+      "map": ["config:rw"],
+      "options": {},
+      "schema": {}
+    }
