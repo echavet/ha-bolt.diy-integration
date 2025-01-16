@@ -1,6 +1,6 @@
 {
       "name": "HA Bolt DIY Integration",
-      "version": "1.4.6",
+      "version": "1.4.7",
       "slug": "ha_bolt_diy_integration",
       "description": "Bolt DIY Integration for Home Assistant",
       "arch": ["armv7", "aarch64", "amd64"],
@@ -18,15 +18,15 @@
       },
       "map": ["config:rw"],
       "options": {
-        "bolt_url": {
-          "name": "Bolt URL",
-          "description": "URL of your Bolt DIY instance",
-          "default": "http://localhost:5173",
+        "node_version": {
+          "name": "Node.js version",
+          "description": "Node.js version to use",
+          "default": "18",
           "required": true
         }
       },
       "schema": {
-        "bolt_url": "str"
+        "node_version": "str"
       },
-      "image": "ghcr.io/home-assistant/{machine}-proxy"
+      "image": "ghcr.io/home-assistant/{arch}-base:latest"
     }
