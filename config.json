@@ -1,6 +1,6 @@
 {
       "name": "HA Bolt DIY Integration",
-      "version": "1.4",
+      "version": "1.4.1",
       "slug": "ha_bolt_diy_integration",
       "description": "Official HA Bolt DIY Integration for Home Assistant",
       "arch": ["armv7", "aarch64", "amd64"],
