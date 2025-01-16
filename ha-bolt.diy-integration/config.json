@@ -1,0 +1,32 @@
+{
+  "name": "HA Bolt DIY Integration",
+  "version": "1.0",
+  "slug": "ha_bolt_diy_integration",
+  "description": "Bolt AI accessible depuis Home Assistant.",
+  "arch": ["armv7", "arm64", "amd64"],
+  "startup": "application",
+  "boot": "auto",
+  "ingress": true,
+  "ingress_port": 5173,
+  "ports": {
+    "5173/tcp": null
+  },
+  "environment": {
+    "NODE_ENV": "production",
+    "PORT": "5173",
+    "GROQ_API_KEY": "required",
+    "HuggingFace_API_KEY": "required",
+    "OPENAI_API_KEY": "required",
+    "ANTHROPIC_API_KEY": "required",
+    "OPEN_ROUTER_API_KEY": "required",
+    "GOOGLE_GENERATIVE_AI_API_KEY": "required",
+    "OLLAMA_API_BASE_URL": "required",
+    "TOGETHER_API_KEY": "required",
+    "TOGETHER_API_BASE_URL": "required",
+    "VITE_LOG_LEVEL": "debug",
+    "DEFAULT_NUM_CTX": "32768",
+    "RUNNING_IN_DOCKER": "true"
+  },
+  "schema": {},
+  "host_network": false
+}
