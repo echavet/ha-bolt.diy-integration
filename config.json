@@ -1,8 +1,8 @@
 {
       "name": "HA Bolt DIY Integration",
-      "version": "1.4.5",
+      "version": "1.4.6",
       "slug": "ha_bolt_diy_integration",
-      "description": "Official HA Bolt DIY Integration for Home Assistant",
+      "description": "Bolt DIY Integration for Home Assistant",
       "arch": ["armv7", "aarch64", "amd64"],
       "startup": "application",
       "boot": "auto",
@@ -14,10 +14,19 @@
         "5173/tcp": 5173
       },
       "ports_description": {
-        "5173/tcp": "HA Bolt DIY Integration web interface"
+        "5173/tcp": "Bolt DIY web interface"
       },
       "map": ["config:rw"],
-      "options": {},
-      "schema": {},
-      "image": "ghcr.io/stackblitz-labs/bolt.diy-{arch}"
+      "options": {
+        "bolt_url": {
+          "name": "Bolt URL",
+          "description": "URL of your Bolt DIY instance",
+          "default": "http://localhost:5173",
+          "required": true
+        }
+      },
+      "schema": {
+        "bolt_url": "str"
+      },
+      "image": "ghcr.io/home-assistant/{machine}-proxy"
     }
