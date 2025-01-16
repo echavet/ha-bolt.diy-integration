@@ -1,6 +1,6 @@
 {
       "name": "HA Bolt DIY Integration",
-      "version": "1.4.1",
+      "version": "1.4",
       "slug": "ha_bolt_diy_integration",
       "description": "Official HA Bolt DIY Integration for Home Assistant",
       "arch": ["armv7", "aarch64", "amd64"],
@@ -19,5 +19,5 @@
       "map": ["config:rw"],
       "options": {},
       "schema": {},
-      "image": "ghcr.io/stackblitz-labs/bolt.diy{arch}"
+      "image": "ghcr.io/stackblitz-labs/bolt.diy:{arch}-1.4"
     }
