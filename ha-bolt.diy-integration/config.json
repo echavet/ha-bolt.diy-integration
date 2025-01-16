@@ -3,6 +3,7 @@
   "version": "1.4",
   "slug": "ha_bolt_diy_integration",
   "description": "Bolt AI accessible depuis Home Assistant.",
+  "author": "Eric Chavet",
   "arch": ["armv7", "arm64", "amd64"],
   "startup": "application",
   "boot": "auto",
