@@ -1,6 +1,6 @@
 {
       "name": "HA Bolt DIY Integration",
-      "version": "1.4.8",
+      "version": "1.4.9",
       "slug": "bolt_diy",
       "description": "Bolt DIY Integration for Home Assistant",
       "arch": ["armv7", "aarch64", "amd64"],
@@ -18,10 +18,10 @@
       },
       "map": ["config:rw"],
       "options": {
-        "node_version": {
-          "name": "Node.js version",
-          "description": "Node.js version to use",
-          "default": "20.18.0",
+        "image_tag": {
+          "name": "Image tag",
+          "description": "Docker image tag to use (development or production)",
+          "default": "development",
           "required": true
         },
         "env_file": {
@@ -32,8 +32,8 @@
         }
       },
       "schema": {
-        "node_version": "str",
+        "image_tag": "str",
         "env_file": "str"
       },
-      "image": "ghcr.io/home-assistant/{arch}-base:latest"
+      "image": "ghcr.io/stackblitz-labs/bolt.diy-{arch}"
     }
