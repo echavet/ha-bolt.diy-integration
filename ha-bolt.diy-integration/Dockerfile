@@ -12,9 +12,12 @@ FROM node:16-alpine
 WORKDIR /app
 COPY --from=builder /app /app
 
+# Rendre le script exécutable
+RUN chmod +x /app/run.sh
+
 ENV NODE_ENV=production
 ENV PORT=5173
 
 EXPOSE 5173
 
-CMD ["pnpm", "run", "dockerstart"]
+CMD ["/app/run.sh"]
