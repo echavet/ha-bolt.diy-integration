@@ -1,7 +1,7 @@
 {
       "name": "HA Bolt DIY Integration",
-      "version": "1.4.7",
-      "slug": "ha_bolt_diy_integration",
+      "version": "1.4.8",
+      "slug": "bolt_diy",
       "description": "Bolt DIY Integration for Home Assistant",
       "arch": ["armv7", "aarch64", "amd64"],
       "startup": "application",
@@ -21,12 +21,19 @@
         "node_version": {
           "name": "Node.js version",
           "description": "Node.js version to use",
-          "default": "18",
+          "default": "20.18.0",
+          "required": true
+        },
+        "env_file": {
+          "name": "Environment file",
+          "description": "Path to .env file",
+          "default": "/config/bolt_diy/.env",
           "required": true
         }
       },
       "schema": {
-        "node_version": "str"
+        "node_version": "str",
+        "env_file": "str"
       },
       "image": "ghcr.io/home-assistant/{arch}-base:latest"
     }
