@@ -26,7 +26,8 @@ RUN git clone -b stable https://github.com/stackblitz-labs/bolt.diy.git .
 ENV PORT=80
 
 # Installer les dépendances du projet avec pnpm, en autorisant l'exécution des scripts postinstall
-RUN pnpm install --unsafe-perm
+RUN pnpm install --unsafe-perm --include-optional
+
 
 # Détection de l'architecture avec TARGETARCH
 ARG TARGETARCH
@@ -44,7 +45,7 @@ RUN if [ -z "$TARGETARCH" ]; then export TARGETARCH=$(uname -m); fi && \
 #    chmod +x /app/node_modules/.pnpm/@cloudflare+workerd-linux-arm64@1.20241106.1/node_modules/@cloudflare/workerd-linux-arm64/bin/workerd
 
 # Indiquer éventuellement à workerd de ne pas tenter de lancer son binaire
-ENV WORKERD_SKIP_BINARY=1
+# ENV WORKERD_SKIP_BINARY=1
 
 # Lancer la build de l'application
 RUN pnpm run build
