@@ -6,10 +6,10 @@ ENV S6_SERVICES_GRACETIME=220000
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Copier les fichiers de documentation (DOCS.md, README, etc.)
+# Copier les fichiers de documentation
 COPY *.md /
 
-# Créer le répertoire de l'application et se positionner dedans
+# Créer le répertoire de l'application
 RUN mkdir /app
 WORKDIR /app
 
@@ -28,7 +28,7 @@ ENV PORT=80
 # Installer les dépendances du projet avec pnpm en forçant l'exécution des scripts postinstall
 RUN pnpm install --unsafe-perm
 
-# Détection de l'architecture
+# Détection de l'architecture (pour info)
 ARG TARGETARCH
 RUN if [ -z "$TARGETARCH" ]; then export TARGETARCH=$(uname -m); fi && \
     if [ "$TARGETARCH" = "aarch64" ] || [ "$TARGETARCH" = "arm64" ]; then \
@@ -37,7 +37,10 @@ RUN if [ -z "$TARGETARCH" ]; then export TARGETARCH=$(uname -m); fi && \
        echo "Non ARM64 ($TARGETARCH): Skipping workerd binary fix"; \
     fi
 
-# Lancer la build de l'application
+# Désactiver le lancement du binaire workerd (pour contourner l'erreur ENOENT sur ARM64)
+ENV WORKERD_SKIP_BINARY=1
+
+# Construire l'application
 RUN pnpm run build
 
 # Exposer le port interne (80)
