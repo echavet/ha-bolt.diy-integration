@@ -1,4 +1,4 @@
-# HA Bolt DIY Integration v1.4.5
+# HA Bolt DIY Integration 2025.2.3-alpha-0.2
 
     Native integration of Bolt DIY into Home Assistant.
 
