@@ -6,10 +6,10 @@ ENV S6_SERVICES_GRACETIME=220000
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Copier les fichiers de documentation (DOCS.md, README, etc.)
+# Copier les fichiers de documentation
 COPY *.md /
 
-# Créer le répertoire de l'application et se positionner dedans
+# Créer le répertoire de l'application
 RUN mkdir /app
 WORKDIR /app
 
@@ -25,10 +25,10 @@ RUN git clone -b stable https://github.com/stackblitz-labs/bolt.diy.git .
 # Configurer l'application pour écouter sur le port 80 (convention HA)
 ENV PORT=80
 
-# Installer les dépendances du projet avec pnpm en forçant l'exécution des scripts postinstall
+# Installer les dépendances du projet avec pnpm, en autorisant l'exécution des scripts postinstall
 RUN pnpm install --unsafe-perm
 
-# Détection de l'architecture
+# Détection de l'architecture avec TARGETARCH
 ARG TARGETARCH
 RUN if [ -z "$TARGETARCH" ]; then export TARGETARCH=$(uname -m); fi && \
     if [ "$TARGETARCH" = "aarch64" ] || [ "$TARGETARCH" = "arm64" ]; then \
@@ -37,16 +37,16 @@ RUN if [ -z "$TARGETARCH" ]; then export TARGETARCH=$(uname -m); fi && \
        echo "Non ARM64 ($TARGETARCH): Skipping workerd binary fix"; \
     fi
 
-# Optionnel : définir une variable pour signaler à workerd de ne pas lancer le binaire
-ENV WORKERD_SKIP_BINARY=1
-
-# Créer un binaire dummy pour workerd-linux-arm64 pour éviter l'erreur ENOENT
+# Créer un dummy pour le binaire workerd destiné à ARM64 pour éviter l'erreur ENOENT
 RUN mkdir -p /app/node_modules/.pnpm/@cloudflare+workerd-linux-arm64@1.20241106.1/node_modules/@cloudflare/workerd-linux-arm64/bin && \
     echo '#!/bin/sh' > /app/node_modules/.pnpm/@cloudflare+workerd-linux-arm64@1.20241106.1/node_modules/@cloudflare/workerd-linux-arm64/bin/workerd && \
-    echo 'exit 0' >> /app/node_modules/.pnpm/@cloudflare+workerd-linux-arm64@1.20241106.1/node_modules/@cloudflare/workerd-linux-arm64/bin/workerd && \
+    echo 'while true; do sleep 3600; done' >> /app/node_modules/.pnpm/@cloudflare+workerd-linux-arm64@1.20241106.1/node_modules/@cloudflare/workerd-linux-arm64/bin/workerd && \
     chmod +x /app/node_modules/.pnpm/@cloudflare+workerd-linux-arm64@1.20241106.1/node_modules/@cloudflare/workerd-linux-arm64/bin/workerd
 
-# Construire l'application
+# Indiquer éventuellement à workerd de ne pas tenter de lancer son binaire
+ENV WORKERD_SKIP_BINARY=1
+
+# Lancer la build de l'application
 RUN pnpm run build
 
 # Exposer le port interne (80)
