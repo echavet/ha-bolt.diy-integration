@@ -6,10 +6,10 @@ ENV S6_SERVICES_GRACETIME=220000
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Copier les fichiers de documentation
+# Copier les fichiers de documentation (DOCS.md, README, etc.)
 COPY *.md /
 
-# Créer le répertoire de l'application et se placer dedans
+# Créer le répertoire de l'application et se positionner dedans
 RUN mkdir /app
 WORKDIR /app
 
@@ -25,12 +25,11 @@ RUN git clone -b stable https://github.com/stackblitz-labs/bolt.diy.git .
 # Configurer l'application pour écouter sur le port 80 (convention HA)
 ENV PORT=80
 
-# Installer les dépendances du projet avec pnpm
-RUN pnpm install
+# Installer les dépendances du projet avec pnpm en forçant l'exécution des scripts postinstall
+RUN pnpm install --unsafe-perm
 
 # Détection de l'architecture
-# Si TARGETARCH n'est pas défini, on le définit avec uname -m.
-# Sur Raspberry Pi (arm64), uname -m retourne généralement "aarch64".
+ARG TARGETARCH
 RUN if [ -z "$TARGETARCH" ]; then export TARGETARCH=$(uname -m); fi && \
     if [ "$TARGETARCH" = "aarch64" ] || [ "$TARGETARCH" = "arm64" ]; then \
        echo "Running on ARM64 ($TARGETARCH), keeping workerd-linux-arm64"; \
@@ -41,7 +40,7 @@ RUN if [ -z "$TARGETARCH" ]; then export TARGETARCH=$(uname -m); fi && \
 # Lancer la build de l'application
 RUN pnpm run build
 
-# Exposer le port interne 80
+# Exposer le port interne (80)
 EXPOSE 80
 
 # Commande de démarrage en production
