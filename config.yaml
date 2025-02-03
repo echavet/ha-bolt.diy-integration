@@ -1,0 +1,34 @@
+name: "ha-bolt.diy-integration"
+slug: "ha-bolt-diy-integration"
+description: "Addon to host an instance of bolt.diy integration."
+version: "2025.2.3-alpha"
+maintainer: "echavet@gmail.com"
+url: "https://github.com/echavet/ha-bolt-diy-integration"
+
+init: false
+
+arch:
+  - amd64
+  - aarch64
+  - armv7
+  - armhf
+
+map:
+  - addons:r
+  - homeassistant_config:rw
+  - share:rw
+  - ssl:rw
+
+# Le container écoute sur 80/tcp, HA mappe ce port vers l'externe (par défaut 5173)
+ports:
+  80/tcp: 5173
+ports_description:
+  80/tcp: "Bolt.DIY Listen Port"
+
+options:
+  debug:
+    description: "Enable debug mode for bolt.diy (if supported)"
+    default: false
+
+schema:
+  debug: bool
