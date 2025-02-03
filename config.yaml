@@ -1,7 +1,7 @@
 name: "ha-bolt.diy-integration"
 slug: "ha-bolt-diy-integration"
 description: "Addon to host an instance of bolt.diy integration."
-version: "2025.2.3-alpha-0.2"
+version: "2025.2.3-alpha-0.3"
 maintainer: "echavet@gmail.com"
 url: "https://github.com/echavet/ha-bolt-diy-integration"
 
