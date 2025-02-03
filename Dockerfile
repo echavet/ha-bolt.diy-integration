@@ -20,7 +20,7 @@ RUN apk add --no-cache git nodejs npm
 RUN npm install -g pnpm
 
 # Cloner la branche stable de bolt.diy dans /app
-RUN git clone -b stable https://github.com/stackblitz-labs/bolt.diy.git .
+RUN git clone -b stable https://github.com/echavet/bolt.diy.git .
 
 # Configurer l'application pour écouter sur le port 80 (convention HA)
 ENV PORT=80
