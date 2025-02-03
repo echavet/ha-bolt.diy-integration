@@ -6,33 +6,37 @@ ENV S6_SERVICES_GRACETIME=220000
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Documentation files (DOCS.md, README, etc.)
+# Copier la documentation (DOCS.md, README, etc.)
 COPY *.md /
 
-# Création du répertoire de l'application
+# Créer le répertoire de l'application
 RUN mkdir /app
 WORKDIR /app
 
-# Installation des dépendances : git, nodejs, npm
+# Installer git, nodejs et npm
 RUN apk add --no-cache git nodejs npm
 
-# Installation de pnpm globalement
+# Installer pnpm globalement
 RUN npm install -g pnpm
 
-# Clonage de la branche stable de bolt.diy dans /app
+# Cloner la branche stable de bolt.diy dans /app
 RUN git clone -b stable https://github.com/stackblitz-labs/bolt.diy.git .
 
-# Force bolt.diy à écouter sur le port 80 (interne)
+# Configurer l’application pour qu’elle écoute sur le port interne 80
 ENV PORT=80
 
-# Installation des dépendances du projet avec pnpm
+# Installer les dépendances du projet via pnpm
 RUN pnpm install
 
-# Construction de l'application
+# Correction de l'architecture : suppression du binaire pour arm64 et ajout du binaire pour amd64
+RUN rm -rf node_modules/.pnpm/@cloudflare+workerd-linux-arm64*
+RUN pnpm add @cloudflare/workerd-linux-amd64@1.20241106.1
+
+# Lancer la build de l'application (selon la commande indiquée dans la doc de bolt.diy)
 RUN pnpm run build
 
-# Expose le port interne (80) que HA mappe ensuite
+# Exposer le port interne (80)
 EXPOSE 80
 
-# Commande de démarrage (en production)
+# Commande de démarrage en production
 CMD [ "pnpm", "run", "dockerstart" ]
