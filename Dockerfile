@@ -6,10 +6,10 @@ ENV S6_SERVICES_GRACETIME=220000
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Copier les fichiers de documentation
+# Copier la documentation (DOCS.md, README, etc.)
 COPY *.md /
 
-# Création du répertoire de l'application
+# Créer le répertoire de l'application
 RUN mkdir /app
 WORKDIR /app
 
@@ -28,19 +28,22 @@ ENV PORT=80
 # Installer les dépendances du projet avec pnpm
 RUN pnpm install
 
-# Supprimer le binaire pour arm64 (incompatible avec amd64)
-RUN rm -rf node_modules/.pnpm/@cloudflare+workerd-linux-arm64*
+# Utiliser l'argument TARGETARCH pour détecter l'architecture
+ARG TARGETARCH
+# Si l'architecture n'est pas arm64, supprimer le binaire pour arm64 et installer celui pour amd64
+RUN if [ "$TARGETARCH" != "arm64" ]; then \
+      echo "Non ARM64 ($TARGETARCH): Removing workerd-linux-arm64 and installing workerd-linux-amd64" && \
+      rm -rf node_modules/.pnpm/@cloudflare+workerd-linux-arm64* && \
+      pnpm add @cloudflare/workerd-linux-amd64@1.20241106.1; \
+    else \
+      echo "Running on arm64, keeping workerd-linux-arm64"; \
+    fi
 
-# La commande suivante était prévue pour installer le binaire amd64,
-# mais le package "@cloudflare/workerd-linux-amd64" n'est pas disponible dans le registre npm.
-# Si nécessaire, vous pouvez chercher une alternative ou fournir le binaire vous-même.
-# RUN pnpm add @cloudflare/workerd-linux-amd64@1.20241106.1
-
-# Construire l'application
+# Lancer la build de l'application
 RUN pnpm run build
 
 # Exposer le port interne (80)
 EXPOSE 80
 
-# Lancer l'application en production
+# Commande de démarrage en production
 CMD [ "pnpm", "run", "dockerstart" ]
