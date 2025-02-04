@@ -43,9 +43,13 @@ RUN if [ -z "$TARGETARCH" ]; then export TARGETARCH=$(uname -m); fi && \
 # Lancer la build de l'application
 RUN pnpm run build
 
-# Exposer le port interne (80)
-# EXPOSE 5173
+# Exposer le port interne (5173)
+EXPOSE 5173
+
+COPY run.sh /run.sh
+RUN chmod +x /run.sh
 
 CMD [ "/run.sh" ]
+
 #CMD [ "pnpm", "run", "dev", "--host 0.0.0.0"]
 
