@@ -19,10 +19,17 @@ RUN apk add --no-cache git nodejs npm
 # Installer pnpm globalement
 RUN npm install -g pnpm
 
-# Cloner la branche stable de bolt.diy dans /app
-#RUN git clone -b stable https://github.com/echavet/bolt.diy.git .
 
-RUN git clone https://github.com/echavet/bolt.diy.git .
+# install runtime dependencies
+RUN npm i @remix-run/node @remix-run/react @remix-run/serve isbot@4 react react-dom
+
+# install dev dependencies
+RUN npm i -D @remix-run/dev vite
+
+# Cloner la branche stable de bolt.diy dans /app
+RUN git clone -b stable https://github.com/stackblitz-labs/bolt.diy.git .
+
+#RUN git clone https://github.com/echavet/bolt.diy.git .
 
 # Configurer l'application pour écouter sur le port 80 (convention HA)
 ENV PORT=5173
