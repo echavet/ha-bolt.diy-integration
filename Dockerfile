@@ -46,6 +46,6 @@ RUN pnpm run build
 # Exposer le port interne (80)
 # EXPOSE 5173
 
-# Commande de démarrage en production
-CMD [ "pnpm", "run", "dev", "--host 0.0.0.0"]
-#pnpm run dev --host 0.0.0.0
+CMD [ "/run.sh" ]
+#CMD [ "pnpm", "run", "dev", "--host 0.0.0.0"]
+
