@@ -44,7 +44,7 @@ RUN if [ -z "$TARGETARCH" ]; then export TARGETARCH=$(uname -m); fi && \
 RUN pnpm run build
 
 # Exposer le port interne (80)
-EXPOSE 5173
+# EXPOSE 5173
 
 # Commande de démarrage en production
 CMD [ "pnpm", "run", "dockerstart" ]
