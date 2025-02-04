@@ -25,7 +25,7 @@ RUN npm install -g pnpm
 RUN git clone https://github.com/echavet/bolt.diy.git .
 
 # Configurer l'application pour écouter sur le port 80 (convention HA)
-ENV PORT=80
+ENV PORT=5173
 
 # Installer les dépendances du projet avec pnpm, en autorisant l'exécution des scripts postinstall
 RUN pnpm install --unsafe-perm 
@@ -44,7 +44,7 @@ RUN if [ -z "$TARGETARCH" ]; then export TARGETARCH=$(uname -m); fi && \
 RUN pnpm run build
 
 # Exposer le port interne (80)
-EXPOSE 80
+EXPOSE 5173
 
 # Commande de démarrage en production
 CMD [ "pnpm", "run", "dev" ]
