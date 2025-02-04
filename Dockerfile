@@ -47,4 +47,5 @@ RUN pnpm run build
 # EXPOSE 5173
 
 # Commande de démarrage en production
-CMD [ "pnpm", "run", "dockerstart" ]
+CMD [ "pnpm", "run", "dev", "--host 0.0.0.0"]
+#pnpm run dev --host 0.0.0.0
